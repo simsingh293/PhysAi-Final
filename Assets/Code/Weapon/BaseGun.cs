@@ -44,10 +44,20 @@ public class BaseGun : MonoBehaviour, IWeapon
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        ApplyGravityToBulletPrediction = Input.GetMouseButton(1) ? true : false;
+
+
+        if (Input.GetMouseButtonDown(0) && !Input.GetMouseButton(1))
         {
-            Shoot();
+            bulletObj = GetBullet();
+            Shoot(bulletObj);
         }
+        else if(Input.GetMouseButtonDown(0) && Input.GetMouseButton(1))
+        {
+            bulletObj = GetGravityBullet();
+            Shoot(bulletObj);
+        }
+
     }
 
     // TODO Implement reloading functionality
@@ -58,11 +68,11 @@ public class BaseGun : MonoBehaviour, IWeapon
 
 
     // Shooting Implementation
-    public void Shoot()
+    public void Shoot(GameObject bullet)
     {
-        bulletObj = Magazine.SpawnToPos(BulletPooler.ProjectileType.Basic, FirePoint.position);
+        //bulletObj = Magazine.SpawnToPos(BulletPooler.ProjectileType.Basic, FirePoint.position);
 
-        if(bulletObj.TryGetComponent<IProjectile>(out var projectile))
+        if(bullet.TryGetComponent<IProjectile>(out var projectile))
         {
             projectile.ShootingDirection = FirePoint.forward;
             projectile.ProjectileSpeed = bulletSpeed;
@@ -96,5 +106,15 @@ public class BaseGun : MonoBehaviour, IWeapon
             Gizmos.DrawLine(point1, point2);
             point1 = point2;
         }
+    }
+
+    public GameObject GetBullet()
+    {
+        return Magazine.SpawnToPos(BulletPooler.ProjectileType.Basic, FirePoint.position);
+    }
+
+    private GameObject GetGravityBullet()
+    {
+        return Magazine.SpawnToPos(BulletPooler.ProjectileType.Gravity, FirePoint.position);
     }
 }

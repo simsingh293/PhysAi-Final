@@ -1,53 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &658385918
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 658385919}
-  m_Layer: 0
-  m_Name: CollisionPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &658385919
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 658385918}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.612}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 7139474844172508341}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9151423344879171889
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1653215085610675771}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 288b1675ffbcb834bb7e9707760b3c1c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ApplyGravity: 0
-  PredictionStepsPerFrame: 6
-  bulletSpeed: 0
-  bulletVelocity: {x: 0, y: 0, z: 0}
-  shotDirection: {x: 0, y: 0, z: 0}
-  hitSomething: 0
 --- !u!1001 &6170575809269919955
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -55,11 +7,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3569564252261901855, guid: 66a706a107bc4fa428ee9a008e64c052,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.596
-      objectReference: {fileID: 0}
     - target: {fileID: 3942559019689552998, guid: 66a706a107bc4fa428ee9a008e64c052,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -115,42 +62,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4796840754147833431, guid: 66a706a107bc4fa428ee9a008e64c052,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.59599996
-      objectReference: {fileID: 0}
     - target: {fileID: 4851270001954578152, guid: 66a706a107bc4fa428ee9a008e64c052,
         type: 3}
       propertyPath: m_Name
       value: BasicBullet Variant
       objectReference: {fileID: 0}
-    - target: {fileID: 4851270001954578152, guid: 66a706a107bc4fa428ee9a008e64c052,
+    - target: {fileID: 9151423344879171889, guid: 66a706a107bc4fa428ee9a008e64c052,
         type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5808005358809917218, guid: 66a706a107bc4fa428ee9a008e64c052,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.59599996
-      objectReference: {fileID: 0}
-    - target: {fileID: 6485600792395599478, guid: 66a706a107bc4fa428ee9a008e64c052,
-        type: 3}
-      propertyPath: m_Emitting
+      propertyPath: ApplyGravity
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 66a706a107bc4fa428ee9a008e64c052, type: 3}
---- !u!1 &1653215085610675771 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4851270001954578152, guid: 66a706a107bc4fa428ee9a008e64c052,
-    type: 3}
-  m_PrefabInstance: {fileID: 6170575809269919955}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &7139474844172508341 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3942559019689552998, guid: 66a706a107bc4fa428ee9a008e64c052,
-    type: 3}
-  m_PrefabInstance: {fileID: 6170575809269919955}
-  m_PrefabAsset: {fileID: 0}

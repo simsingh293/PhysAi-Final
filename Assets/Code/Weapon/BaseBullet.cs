@@ -57,10 +57,74 @@ public class BaseBullet : MonoBehaviour, IProjectile
         }
     }
 
+
+    // Initialize projectile by setting forward direction and velocity, 
+    // as well as start a coroutine to disable the bullet after some time
+    /// <summary>
+    /// Initialize projectile by setting forward direction and velocity, 
+    // as well as start a coroutine to disable the bullet after some time
+    /// </summary>
+    public void Init()
+    {
+        SetVelocity();
+        SetForward();
+        currentCo = StartCoroutine(DisableBullet(DisableTime));
+    }
+    public void Travel()
+    {
+        currentPosition = transform.position;
+        travelDirection = transform.forward;
+
+        float stepSize = 1.0f / PredictionStepsPerFrame;
+
+        for(float step = 0; step < 1; step += stepSize)
+        {
+
+            bulletVelocity += AdditionalVelocity() * stepSize;
+            
+
+            amountToOffset = bulletVelocity * stepSize * Time.deltaTime;
+
+            targetPosition = currentPosition + amountToOffset;
+
+            newDirection = targetPosition - currentPosition;
+
+
+            Ray ray = new Ray(currentPosition, newDirection.normalized);
+
+            if(Physics.Raycast(ray, newDirection.magnitude))
+            {
+                Debug.Log("Hit Something");
+                hitSomething = true;
+                break;
+            }
+
+
+            currentPosition = targetPosition;
+            travelDirection = newDirection;
+        }
+
+        transform.position = currentPosition;
+        transform.forward = travelDirection;
+    }
+
     public void Impact()
     {
         Debug.Log("Impact Logic");
+
+        DealDamage();
         DeactivateBullet();
+        
+        //Instantiate(BulletPooler.Instance.SpawnToPosRot(BulletPooler.ProjectileType.Rocket, transform.position, Quaternion.Euler(-travelDirection))); 
+    }
+
+    public virtual Vector3 AdditionalVelocity()
+    {
+        Vector3 velocityToAdd = Vector3.zero;
+
+        //velocityToAdd = Physics.gravity * Time.deltaTime;
+
+        return velocityToAdd;
     }
 
     void SetVelocity()
@@ -96,56 +160,20 @@ public class BaseBullet : MonoBehaviour, IProjectile
         gameObject.SetActive(false);
     }
 
-    public void Init()
+
+    void DealDamage()
     {
-        SetVelocity();
-        SetForward();
-        currentCo = StartCoroutine(DisableBullet(DisableTime));
-    }
+        RaycastHit hit;
+        Ray ray = new Ray(transform.position, travelDirection);
 
-    public void Travel()
-    {
-        currentPosition = transform.position;
-        travelDirection = transform.forward;
-
-        float stepSize = 1.0f / PredictionStepsPerFrame;
-
-        for(float step = 0; step < 1; step += stepSize)
+        if(Physics.Raycast(ray, out hit, 0.1f))
         {
-            if (ApplyGravity)
+            if(hit.collider.gameObject.TryGetComponent(out HealthSystem HPSys))
             {
-                bulletVelocity += Physics.gravity * stepSize * Time.deltaTime;
+                HPSys.Damage(5);
             }
-            else
-            {
-                bulletVelocity += Vector3.zero * stepSize * Time.deltaTime;
-            }
-
-            amountToOffset = bulletVelocity * stepSize * Time.deltaTime;
-
-            targetPosition = currentPosition + amountToOffset;
-
-            newDirection = targetPosition - currentPosition;
-
-
-            Ray ray = new Ray(currentPosition, newDirection.normalized);
-
-            if(Physics.Raycast(ray, newDirection.magnitude))
-            {
-                Debug.Log("Hit Something");
-                hitSomething = true;
-                break;
-            }
-
-
-            currentPosition = targetPosition;
-            travelDirection = newDirection;
         }
-
-        transform.position = currentPosition;
-        transform.forward = travelDirection;
     }
-
 
 
     private void OnDrawGizmos()

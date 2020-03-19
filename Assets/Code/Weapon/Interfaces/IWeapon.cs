@@ -11,8 +11,9 @@ public interface IWeapon
     BulletPooler Magazine { get; }
     Transform FirePoint { get; }
 
+    GameObject GetBullet();
     // function to SHOOT weapon
-    void Shoot();
+    void Shoot(GameObject bullet);
 
     // function to RELOAD weapon
     void Reload();

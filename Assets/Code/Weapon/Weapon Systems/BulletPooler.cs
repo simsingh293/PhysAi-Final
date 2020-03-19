@@ -7,7 +7,7 @@ public class BulletPooler : MonoBehaviour
     public enum ProjectileType
     {
         Basic,
-        Explosive,
+        Gravity,
         Rocket
     }
 
@@ -18,7 +18,6 @@ public class BulletPooler : MonoBehaviour
         public GameObject projPrefab;
         public Transform poolHolder;
         public int poolSize;
-        public int scaleModifier;
     }
 
 
@@ -49,10 +48,6 @@ public class BulletPooler : MonoBehaviour
             {
                 GameObject obj = Instantiate(pool.projPrefab, pool.poolHolder);
 
-                if(pool.scaleModifier > 0)
-                {
-                    obj.transform.localScale *= pool.scaleModifier;
-                }
 
                 obj.SetActive(false);
 
